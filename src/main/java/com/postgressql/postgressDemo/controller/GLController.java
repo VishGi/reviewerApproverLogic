@@ -1,5 +1,6 @@
 package com.postgressql.postgressDemo.controller;
 
+import com.postgressql.postgressDemo.dto.ApproverReviewerDTO;
 import com.postgressql.postgressDemo.dto.responseDto;
 import com.postgressql.postgressDemo.model.TableAEntity;
 import com.postgressql.postgressDemo.model.TableBEntity;
@@ -65,11 +66,10 @@ public class GLController {
         }
 
         String areaCode = tableA.getAreaCode();
-        List<TableBEntity> tableBList = glService.getApproverReviewerByAreaCode(areaCode);
+        ApproverReviewerDTO approverReviewerDTO = glService.getApproverReviewerByAreaCode(areaCode);
 
-        responseDto response = new responseDto();
-        response.setTableA(tableA);
-        response.setTableBList(tableBList);
+        responseDto response = new responseDto();response.setApprover(approverReviewerDTO.getApprover());
+        response.setReviewer(approverReviewerDTO.getReviewer());
 
         return ResponseEntity.ok(response);
     }

@@ -1,5 +1,6 @@
 package com.postgressql.postgressDemo.service;
 
+import com.postgressql.postgressDemo.dto.ApproverReviewerDTO;
 import com.postgressql.postgressDemo.model.TableAEntity;
 import com.postgressql.postgressDemo.model.TableBEntity;
 import com.postgressql.postgressDemo.repo.TableAResponse;
@@ -46,7 +47,7 @@ public class ApproverService {
         return list;
     }
 
-    public List<TableBEntity> getApproverReviewerByAreaCode(String areaCode) {
+    public ApproverReviewerDTO getApproverReviewerByAreaCode(String areaCode) {
         List<TableBEntity> list = tableBResponse.findByAreaCode(areaCode);
 
         TableBEntity minLimitEntity = list.stream()
@@ -72,7 +73,7 @@ public class ApproverService {
             }
         }
         System.out.println("Approver: " + approver + " - Reviewer: " + reviewer);
-        return list;
+        return new ApproverReviewerDTO(approver, reviewer);
     }
 
 
