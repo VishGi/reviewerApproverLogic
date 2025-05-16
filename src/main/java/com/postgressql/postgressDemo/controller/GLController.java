@@ -65,7 +65,7 @@ public class GLController {
         }
 
         String areaCode = tableA.getAreaCode();
-        List<TableBEntity> tableBList = glService.getAllByAreaCode(areaCode);
+        List<TableBEntity> tableBList = glService.getApproverReviewerByAreaCode(areaCode);
 
         responseDto response = new responseDto();
         response.setTableA(tableA);

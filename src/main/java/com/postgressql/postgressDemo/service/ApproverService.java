@@ -46,6 +46,35 @@ public class ApproverService {
         return list;
     }
 
+    public List<TableBEntity> getApproverReviewerByAreaCode(String areaCode) {
+        List<TableBEntity> list = tableBResponse.findByAreaCode(areaCode);
+
+        TableBEntity minLimitEntity = list.stream()
+                .filter(e -> e.getLimit() > 0)
+                .min(Comparator.comparingLong(TableBEntity::getLimit))
+                .orElse(null);
+        String reviewer = null;//for print
+        String approver = null;//for print
+
+        for (TableBEntity entity : list) {
+            if (entity.getLimit() == 0) {
+
+                if ("true".equalsIgnoreCase(entity.getOoo()) && entity.getAlternateapprover() != null) {
+                    entity.setApprover(entity.getAlternateapprover());
+                }
+                reviewer = entity.getApprover(); //for print
+            } else if (minLimitEntity != null && entity.getguid().equals(minLimitEntity.getguid())) {
+
+                if ("true".equalsIgnoreCase(entity.getOoo()) && entity.getAlternateapprover() != null) {
+                    entity.setApprover(entity.getAlternateapprover());
+                }
+                approver = entity.getApprover(); // for print
+            }
+        }
+        System.out.println("Approver: " + approver + " - Reviewer: " + reviewer);
+        return list;
+    }
+
 
 }
 
